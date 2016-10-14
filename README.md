@@ -69,4 +69,10 @@ Script name: [`lookup_ids.py`](./lookup_ids.py)
 3|WOS:000300816600006|10.1016/j.neuropsychologia.2011.12.011|22223077|22|...
 
 
+### Get JCR URLs for a set of ISSNs
+
+Script name: [`issns_to_jcr.py`](./issns_to_jcr.py)
+
+An incoming csv file with a column with an ID and a ISSN can be match to the Web of Science and a link to the Journal Citation Reports URL for that journal can be returned. 
+
 More use cases will be added .....
