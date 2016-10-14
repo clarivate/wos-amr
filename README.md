@@ -38,7 +38,7 @@ set WOS_PASSWORD="mypassword"
 Run the script with the incoming csv data as the first parameter and output file as the second parameter. For example:
 
 ~~~
-$ python batch_lookup.py myfile.csv output.csv
+$ python lookup_ids.py myfile.csv output.csv
 ~~~
 
 #### Disclaimer
@@ -51,6 +51,7 @@ These scripts are provided to allow Web of Science users to perform common opera
 
 With a CSV file with the following information, retrieve the Web of Science identifier (UT), DOI, current times cited count, and a link to the Web of Science.
 
+Script name: [`lookup_ids.py`](./lookup_ids.py)
 
 #### incoming data
 |PMID|DOI|
