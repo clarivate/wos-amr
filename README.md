@@ -7,7 +7,7 @@ For more information about web services for the Web of Science, please review th
 ## Getting started
 
 ### Requirements
-* Python 2.7 or Python 3.5
+* Python 2.7
 * Access to the [AMR](http://ipscience-help.thomsonreuters.com/LAMRService/WebServicesOverviewGroup/overview.html) service
 
 ### Install
