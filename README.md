@@ -43,7 +43,7 @@ $ python lookup_ids.py myfile.csv output.csv
 
 #### Disclaimer
 
-These scripts are provided to allow Web of Science users to perform common operations with the AMR web service. The scripts and uses cases may change over time.
+These scripts are provided to allow Web of Science users to perform common operations with the AMR web service. The scripts and uses cases may change over time. No direct support is provided. Please contact [technical support](http://ip-science.thomsonreuters.com/techsupport/) with questions regarding API access.
 
 ## Use Cases
 
