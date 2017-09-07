@@ -41,9 +41,9 @@ def read(raw):
 
 
 def get(request_xml):
-    req = urllib2.Request(AMR_URL, request_xml)
-    req.add_header('Content Type', 'application/xml')
-    response = urllib2.urlopen(req)
+    req = urllib2.Request(AMR_URL)
+    req.add_header('Content-Type', 'application/xml')
+    response = urllib2.urlopen(req, request_xml)
     text = response.read()
     # parse into xml
     xml = read(text)
