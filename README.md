@@ -2,7 +2,7 @@
 
 This client allows users to send batch requests to [AMR](http://ipscience-help.thomsonreuters.com/LAMRService/WebServicesOverviewGroup/overview.html) to match local metadata to the Web of Science and retrieve details about individual documents from the Web of Science.
 
-For more information about web services for the Web of Science, please review this [data integration](http://ip-science.interest.thomsonreuters.com/data-integration) website.
+For more information about web services for the Web of Science, please review this [data integration](https://clarivate.com/products/data-integration/) website.
 
 ## Getting started
 
@@ -43,7 +43,7 @@ $ python lookup_ids.py myfile.csv output.csv
 
 #### Disclaimer
 
-These scripts are provided to allow Web of Science users to perform common operations with the AMR web service. The scripts and uses cases may change over time. No direct support is provided. Please contact [technical support](http://ip-science.thomsonreuters.com/techsupport/) with questions regarding API access.
+These scripts are provided to allow Web of Science users to perform common operations with the AMR web service. The scripts and uses cases may change over time. No direct support is provided. Please contact your Clarivate account manager or [technical support](https://support.clarivate.com/) with questions regarding API access.
 
 ## Use Cases
 
