@@ -1,5 +1,5 @@
 """
-Expects an incoming CSV file with local ID, PMID, or DOI headers and wil post to
+Expects an incoming CSV file with local ID, PMID, or DOI headers and will post to
 AMR in batches of 50.
 
 E.g.
