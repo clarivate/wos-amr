@@ -16,7 +16,7 @@ PMID
 
 Run as:
 
-$ python batch_lookup.py sample_file.csv outputfile.csv
+$ python lookup_ids.py ids_example.csv outputfile.csv
 
 """
 
@@ -79,7 +79,7 @@ def prep_request(items, local_id="id"):
             this_item.append(de)
         map_items.append(this_item)
 
-    request_items = ET.tostring(map_items)
+    request_items = ET.tostring(map_items).decode("utf-8")
     xml = id_request_template.format(user=client.USER, password=client.PASSWORD, items=request_items)
     return xml
 
@@ -102,13 +102,13 @@ def main():
     lookup_groups = client.grouper(to_check, client.BATCH_SIZE)
     for idx, batch in enumerate(lookup_groups):
         xml = prep_request(batch)
-        print>> sys.stderr, "Processing batch", idx
+        print("Processing batch {}".format(idx))
         # Post the batch
         rsp = client.get(xml)
         found.append(rsp)
 
     # Write the results to a csv file.
-    with open(outfile, 'wb') as of:
+    with open(outfile, 'w') as of:
         writer = csv.writer(of)
         writer.writerow(('id', 'ut', 'doi', 'pmid', 'times cited', 'source'))
         for grp in found:

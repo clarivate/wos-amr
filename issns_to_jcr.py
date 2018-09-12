@@ -4,17 +4,19 @@ Expects an incoming CSV file with ISSNs and will generate output from AMR.
 E.g.
 
 ISSN
-1234-4900
-3902-3829
+0265-0568
+0028-0836
+0028-4793
 
 You can optionally include an ID column for the journal
 ID,ISSN
-13, 2309-9302
-39, 3990-2123
+1,0265-0568
+2,0028-0836
+3,0028-4793
 
 Run as:
 
-$ python issns_to_jcr.py sample_file.csv outputfile.csv
+$ python issns_to_jcr.py issns_example.csv outputfile.csv
 
 """
 
@@ -65,7 +67,7 @@ def prep_request(items):
         this_item.append(de)
         map_items.append(this_item)
 
-    request_items = ET.tostring(map_items)
+    request_items = ET.tostring(map_items).decode("utf-8")
     xml = request_template.format(user=client.USER, password=client.PASSWORD, items=request_items)
     return xml
 
@@ -75,19 +77,19 @@ def main():
     journals = []
     with open(sys.argv[1]) as infile:
         for num, row in enumerate(csv.DictReader(infile)):
-            print>> sys.stderr, "Processing", row['ISSN']
+            print("Processing {}".format(row['ISSN']))
             jid = row.get('ID', num)
             journals.append((jid, row['ISSN']))
 
     lookup_groups = client.grouper(journals, client.BATCH_SIZE)
     for idx, batch in enumerate(lookup_groups):
         xml = prep_request(batch)
-        print>> sys.stderr, "Processing batch", idx
+        print("Processing batch {}".format(idx))
         # Post the batch
         rsp = client.get(xml)
         found.append(rsp)
 
-    with open(sys.argv[2], 'wb') as outfile:
+    with open(sys.argv[2], 'w') as outfile:
         writer = csv.writer(outfile)
         writer.writerow(('number', 'ISSN', 'JCR'))
         for grp in found:
@@ -97,4 +99,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

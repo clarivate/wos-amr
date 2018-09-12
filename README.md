@@ -7,7 +7,7 @@ For more information about web services for the Web of Science, please review th
 ## Getting started
 
 ### Requirements
-* Python 2.7
+* Python 3
 * Access to the [AMR](http://ipscience-help.thomsonreuters.com/LAMRService/WebServicesOverviewGroup/overview.html) service
 
 ### Install
@@ -38,7 +38,7 @@ set WOS_PASSWORD="mypassword"
 Run the script with the incoming csv data as the first parameter and output file as the second parameter. For example:
 
 ~~~
-$ python lookup_ids.py myfile.csv output.csv
+$ python3 lookup_ids.py myfile.csv output.csv
 ~~~
 
 #### Disclaimer
@@ -74,5 +74,8 @@ Script name: [`lookup_ids.py`](./lookup_ids.py)
 Script name: [`issns_to_jcr.py`](./issns_to_jcr.py)
 
 An incoming csv file with a column with an ID and a ISSN can be match to the Web of Science and a link to the Journal Citation Reports URL for that journal can be returned. 
+~~~
+$ python3 issns_to_jcr.py issns_example.csv outputfile.csv
+~~~
 
 More use cases will be added .....

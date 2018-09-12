@@ -3,10 +3,10 @@ Basic Python client for AMR.
 http://ipscience-help.thomsonreuters.com/LAMRService/WebServicesOverviewGroup/overview.html
 """
 
-from itertools import izip_longest
+from itertools import zip_longest
 import os
 import xml.etree.ElementTree as ET
-import urllib2
+import requests
 
 try:
     USER = os.environ['WOS_USER']
@@ -24,7 +24,7 @@ def grouper(iterable, n, fillvalue=None):
     See: http://stackoverflow.com/a/312644/758157
     """
     args = [iter(iterable)] * n
-    return izip_longest(*args, fillvalue=fillvalue)
+    return zip_longest(*args, fillvalue=fillvalue)
 
 
 def read(raw):
@@ -41,12 +41,8 @@ def read(raw):
 
 
 def get(request_xml):
-    req = urllib2.Request(AMR_URL)
-    req.add_header('Content-Type', 'application/xml')
-    response = urllib2.urlopen(req, request_xml)
-    text = response.read()
+    headers = {'Content-Type': 'application/xml'}
+    response = requests.post(AMR_URL, data=request_xml, headers=headers)
     # parse into xml
-    xml = read(text)
+    xml = read(response.text)
     return xml
-
-
