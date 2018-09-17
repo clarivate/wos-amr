@@ -74,11 +74,18 @@ def prep_request(items, local_id="id"):
         for k, v in pub.items():
             if v is None:
                 continue
-            de = ET.Element("val", name=k.lower())
-            de.text = v.strip()
+            if k == "authors" and v:
+                authors = [x.strip() for x in v.split(";")]
+                de = ET.Element("list", name="authors")
+                for author in authors:
+                    auth_item = ET.Element("val")
+                    auth_item.text = author
+                    de.append(auth_item)
+            else:
+                de = ET.Element("val", name=k.lower())
+                de.text = v.strip()
             this_item.append(de)
         map_items.append(this_item)
-
     request_items = ET.tostring(map_items).decode("utf-8")
     xml = id_request_template.format(user=client.USER, password=client.PASSWORD, items=request_items)
     return xml
@@ -89,7 +96,7 @@ def main():
         infile = sys.argv[1]
         outfile = sys.argv[2]
     except IndexError:
-        raise Exception("An input and outpfile file is required.")
+        raise Exception("An input and outfile file are required.")
     found = []
     to_check = []
     with open(infile) as inf:

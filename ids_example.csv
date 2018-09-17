@@ -1,4 +1,7 @@
-PMID,DOI
-19883697,10.1016/j.bbr.2009.10.030
-22011016,10.1080/09602011.2011.621275
-2223077,10.1016/j.neuropsychologia.2011.12.011
+PMID,DOI,UT,atitle,stitle,vol,issue,spage,issn,year,authors
+19883697,10.1016/j.bbr.2009.10.030,,,,,,,,,
+22011016,10.1080/09602011.2011.621275,,,,,,,,,
+2223077,10.1016/j.neuropsychologia.2011.12.011,,,,,,,,,
+,,,weighted median filters: A tutorial,IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS II-ANALOG AND DIGITAL SIGNAL PROCESSING,,,,,1996,
+,,000203011100014,,,,,,,,
+,,,"New kilogram-synthesis of the anti-Alzheimer drug (-)-galanthamine",TETRAHEDRON LETTERS,39,15,2087,"0040-4039",1998,"Czollner, L;Frantsits, W;Kuenburg, B;Hedenig, U;Frohlich, J;Jordis, U"

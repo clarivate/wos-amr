@@ -68,6 +68,21 @@ Script name: [`lookup_ids.py`](./lookup_ids.py)
 2|WOS:000299789100009|10.1080/09602011.2011.621275|22011016|33|....
 3|WOS:000300816600006|10.1016/j.neuropsychologia.2011.12.011|22223077|22|...
 
+### Match based on bibliometric data
+The AMR API also allows you to retreive articles based on bibliometric data, such as the article title and authors. Authors should be in a single field, separated by semicolons. Note that the data provided to the API must match a single article, if the result set is non-unique you will not receive any results.
+
+#### incoming data
+|atitle|stitle|vol|issue|spage|issn|year|authors
+|---|---|---|---|----|---|---|---|
+weighted median filters: A tutorial|IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS II-ANALOG AND DIGITAL SIGNAL PROCESSING|||||1996|
+"New kilogram-synthesis of the anti-Alzheimer drug (-)-galanthamine"|TETRAHEDRON LETTERS|39|15|2087|0040-4039|1998|Czollner, L;Frantsits, W;Kuenburg, B;Hedenig, U;Frohlich, J;Jordis, U
+
+#### matched data
+|id|ut|doi|pmid|times cited|source|
+|---|---|---|---|----|---|
+1|WOS:A1996UB63100001|10.1109/82.486465||349|...
+2|WOS:000072730400015|10.1016/S0040-4039(98)00294-9||56|...
+
 
 ### Get JCR URLs for a set of ISSNs
 
@@ -78,4 +93,3 @@ An incoming csv file with a column with an ID and a ISSN can be match to the Web
 $ python3 issns_to_jcr.py issns_example.csv outputfile.csv
 ~~~
 
-More use cases will be added .....
