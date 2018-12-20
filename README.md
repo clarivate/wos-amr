@@ -69,7 +69,7 @@ Script name: [`lookup_ids.py`](./lookup_ids.py)
 3|WOS:000300816600006|10.1016/j.neuropsychologia.2011.12.011|22223077|22|...
 
 ### Match based on bibliometric data
-The AMR API also allows you to retreive articles based on bibliometric data, such as the article title and authors. Authors should be in a single field, separated by semicolons. Note that the data provided to the API must match a single article, if the result set is non-unique you will not receive any results.
+The AMR API also allows you to retrieve articles based on bibliometric data, such as the article title and authors. Authors should be in a single field, separated by semicolons. Note that the data provided to the API must match a single article, if the result set is non-unique you will not receive any results.
 
 #### incoming data
 |atitle|stitle|vol|issue|spage|issn|year|authors

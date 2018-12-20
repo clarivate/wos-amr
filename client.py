@@ -27,16 +27,21 @@ def grouper(iterable, n, fillvalue=None):
     return zip_longest(*args, fillvalue=fillvalue)
 
 
-def read(raw):
+def read(raw_in):
     ns = {'isi': 'http://www.isinet.com/xrpc41'}
-    raw = ET.fromstring(raw)
+    raw = ET.fromstring(raw_in)
     out = {}
-    for cite in raw.findall('isi:fn/isi:map/isi:map', ns):
-        cite_key = cite.attrib['name']
-        meta = {}
-        for val in cite.findall('isi:map/isi:val', ns):
-            meta[val.attrib['name']] = val.text
-        out[cite_key] = meta
+    recs = raw.findall('isi:fn/isi:map/isi:map', ns)
+    if len(recs) < 1:
+        print('\n\nERROR: The AMR API did not return any records. Response text:')
+        print(raw_in)
+    else:
+        for cite in recs:
+            cite_key = cite.attrib['name']
+            meta = {}
+            for val in cite.findall('isi:map/isi:val', ns):
+                meta[val.attrib['name']] = val.text
+            out[cite_key] = meta
     return out
 
 

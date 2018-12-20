@@ -109,7 +109,7 @@ def main():
     lookup_groups = client.grouper(to_check, client.BATCH_SIZE)
     for idx, batch in enumerate(lookup_groups):
         xml = prep_request(batch)
-        print("Processing batch {}".format(idx))
+        print("Processing batch {}".format(idx + 1))
         # Post the batch
         rsp = client.get(xml)
         found.append(rsp)
