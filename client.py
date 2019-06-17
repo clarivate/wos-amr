@@ -41,6 +41,8 @@ def read(raw_in):
             meta = {}
             for val in cite.findall('isi:map/isi:val', ns):
                 meta[val.attrib['name']] = val.text
+                if val.attrib['name'] == 'message':
+                    print('\n\nMessage from AMR: {}'.format(val.text))
             out[cite_key] = meta
     return out
 
