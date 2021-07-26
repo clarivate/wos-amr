@@ -1,20 +1,20 @@
 # Web of Science Links Article Match Retrieval Service (AMR)
 
-This client allows users to send batch requests to [AMR](http://ipscience-help.thomsonreuters.com/LAMRService/WebServicesOverviewGroup/overview.html) to match local metadata to the Web of Science and retrieve details about individual documents from the Web of Science.
+This client allows users to send batch requests to [AMR](http://help.incites.clarivate.com/LAMRService/WebServicesOverviewGroup/overview.html) to match local metadata to the Web of Science and retrieve details about individual documents from the Web of Science.
 
-For more information about web services for the Web of Science, please review this [data integration](https://clarivate.com/products/data-integration/) website.
+For more information about web services for the Web of Science, please review this [data integration](https://clarivate.com/webofsciencegroup/solutions/xml-and-apis/) website.
 
 ## Getting started
 
 ### Requirements
 * Python 3
-* Access to the [AMR](http://ipscience-help.thomsonreuters.com/LAMRService/WebServicesOverviewGroup/overview.html) service
+* Access to the [AMR](http://help.incites.clarivate.com/LAMRService/WebServicesOverviewGroup/overview.html) service
 
 ### Install
 
 * Download or clone this repository by clicking on the "Clone or download" button in the top right corner
 * Set two environment variables with your AMR credentials. Note, your AMR username and password is NOT the same
-* as your credentials for the Web of Science. 
+* as your credentials for the Web of Science.
  * WOS_USER
  * WOS_PASSWORD
 
@@ -41,6 +41,10 @@ Run the script with the incoming csv data as the first parameter and output file
 ~~~
 $ python3 lookup_ids.py myfile.csv output.csv
 ~~~
+
+#### A note on throttling
+
+AMR limits the number of records you can request per minute. The example scripts in this repository include logic to respect that limit. You may have to adjust the THROTTLE_CAP value in client.py if you continue to receive throttling errors. 
 
 #### Disclaimer
 
@@ -70,7 +74,7 @@ Script name: [`lookup_ids.py`](./lookup_ids.py)
 3|WOS:000300816600006|10.1016/j.neuropsychologia.2011.12.011|22223077|22|...
 
 ### Match based on bibliometric data
-The AMR API also allows you to retrieve articles based on bibliometric data, such as the article title and authors. Authors should be in a single field, separated by semicolons. Note that the data provided to the API must match a single article, if the result set is non-unique you will not receive any results. Please note, matching based on bibliometric data is not available for customers entitled only to the AMRLite service. An example csv file excluding bibliometric fields is included as ids_example_lite.csv. 
+The AMR API also allows you to retrieve articles based on bibliometric data, such as the article title and authors. Authors should be in a single field, separated by semicolons. Note that the data provided to the API must match a single article, if the result set is non-unique you will not receive any results. Please note, matching based on bibliometric data is not available for customers entitled only to the AMRLite service. An example csv file excluding bibliometric fields is included as ids_example_lite.csv.
 
 #### incoming data
 |atitle|stitle|vol|issue|spage|issn|year|authors
@@ -89,8 +93,7 @@ weighted median filters: A tutorial|IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS II
 
 Script name: [`issns_to_jcr.py`](./issns_to_jcr.py)
 
-An incoming csv file with a column with an ID and a ISSN can be match to the Web of Science and a link to the Journal Citation Reports URL for that journal can be returned. 
+An incoming csv file with a column with an ID and a ISSN can be match to the Web of Science and a link to the Journal Citation Reports URL for that journal can be returned.
 ~~~
 $ python3 issns_to_jcr.py issns_example.csv outputfile.csv
 ~~~
-

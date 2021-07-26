@@ -23,6 +23,8 @@ $ python lookup_ids.py ids_example.csv outputfile.csv
 import csv
 import sys
 import xml.etree.ElementTree as ET
+from datetime import datetime
+from time import sleep
 
 import client
 
@@ -87,7 +89,9 @@ def prep_request(items, local_id="id"):
             this_item.append(de)
         map_items.append(this_item)
     request_items = ET.tostring(map_items).decode("utf-8")
-    xml = id_request_template.format(user=client.USER, password=client.PASSWORD, items=request_items)
+    xml = id_request_template.format(user=client.USER,
+                                     password=client.PASSWORD,
+                                     items=request_items)
     return xml
 
 
@@ -107,9 +111,23 @@ def main():
             to_check.append(d)
 
     lookup_groups = client.grouper(to_check, client.BATCH_SIZE)
-    for idx, batch in enumerate(lookup_groups):
+    start_time = datetime.now().timestamp()
+    throttle_group = 1
+    for idx, batch in enumerate(lookup_groups, 1):
         xml = prep_request(batch)
-        print("Processing batch {}".format(idx + 1))
+
+        # Respect throttling of records per minute
+        time_elapsed = datetime.now().timestamp() - start_time
+        if (client.BATCH_SIZE*idx) > (client.THROTTLE_CAP*throttle_group) \
+           and time_elapsed < (60*throttle_group):
+            sleep_length = 60*throttle_group-time_elapsed+1
+            print("Rate throttling in effect, waiting {} seconds..."
+                  .format(round(sleep_length)))
+            sleep(sleep_length)
+            print("Restarting requests...")
+            throttle_group += 1
+
+        print("Processing batch {}".format(idx))
         # Post the batch
         rsp = client.get(xml)
         found.append(rsp)
@@ -123,8 +141,11 @@ def main():
                 ut = item.get('ut')
                 if ut is not None:
                     ut = "WOS:" + ut
-                writer.writerow([k, ut, item.get('doi', ""), item.get('pmid', ""), item.get('timesCited', '0'),
-                                 item.get('sourceURL', 'N/A')])
+                writer.writerow([k, ut, item.get('doi', ""),
+                                item.get('pmid', ""),
+                                item.get('timesCited', '0'),
+                                item.get('sourceURL', 'N/A')])
+
 
 if __name__ == "__main__":
     main()

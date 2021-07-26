@@ -23,6 +23,8 @@ $ python issns_to_jcr.py issns_example.csv outputfile.csv
 import csv
 import sys
 import xml.etree.ElementTree as ET
+from datetime import datetime
+from time import sleep
 
 import client
 
@@ -68,7 +70,9 @@ def prep_request(items):
         map_items.append(this_item)
 
     request_items = ET.tostring(map_items).decode("utf-8")
-    xml = request_template.format(user=client.USER, password=client.PASSWORD, items=request_items)
+    xml = request_template.format(user=client.USER,
+                                  password=client.PASSWORD,
+                                  items=request_items)
     return xml
 
 
@@ -82,8 +86,22 @@ def main():
             journals.append((jid, row['ISSN']))
 
     lookup_groups = client.grouper(journals, client.BATCH_SIZE)
-    for idx, batch in enumerate(lookup_groups):
+    start_time = datetime.now().timestamp()
+    throttle_group = 1
+    for idx, batch in enumerate(lookup_groups, 1):
         xml = prep_request(batch)
+
+        # Respect throttling of records per minute
+        time_elapsed = datetime.now().timestamp() - start_time
+        if (client.BATCH_SIZE*idx) > (client.THROTTLE_CAP*throttle_group) \
+           and time_elapsed < (60*throttle_group):
+            sleep_length = 60*throttle_group-time_elapsed+1
+            print("Rate throttling in effect, waiting {} seconds..."
+                  .format(round(sleep_length)))
+            sleep(sleep_length)
+            print("Restarting requests...")
+            throttle_group += 1
+
         print("Processing batch {}".format(idx))
         # Post the batch
         rsp = client.get(xml)
@@ -94,7 +112,8 @@ def main():
         writer.writerow(('number', 'ISSN', 'JCR'))
         for grp in found:
             for item in grp:
-                writer.writerow([item, grp[item].get('issn', 'na'), grp[item].get('impactGraphURL', 'na')])
+                writer.writerow([item, grp[item].get('issn', 'na'),
+                                grp[item].get('impactGraphURL', 'na')])
 
 
 if __name__ == "__main__":
