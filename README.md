@@ -13,10 +13,9 @@ For more information about web services for the Web of Science, please review th
 ### Install
 
 * Download or clone this repository by clicking on the "Clone or download" button in the top right corner
-* Set two environment variables with your AMR credentials. Note, your AMR username and password is NOT the same
-* as your credentials for the Web of Science.
- * WOS_USER
- * WOS_PASSWORD
+* Set two environment variables with your AMR credentials. Note, your AMR username and password is NOT the same as your credentials for the Web of Science.
+    * WOS_USER
+    * WOS_PASSWORD
 
 #### Setting environment variables
 
