@@ -16,7 +16,7 @@ except KeyError:
 
 AMR_URL = "https://ws.isiknowledge.com/cps/xrpc"
 BATCH_SIZE = 50
-THROTTLE_CAP = 3000  # Max number of records you may request per minute
+THROTTLE_CAP = 2500  # Max number of records you may request per minute
 
 
 def grouper(iterable, n, fillvalue=None):
