@@ -1,5 +1,7 @@
 # Web of Science Links Article Match Retrieval Service (AMR)
 
+**Note, AMR is deprecated and scheduled to be sunset on November 1, 2023. It has been replaced by the Web of Science [Starter API](https://developer.clarivate.com/apis/wos-starter). This library will be archived following the sunset of AMR.**
+
 This client allows users to send batch requests to [AMR](http://help.incites.clarivate.com/LAMRService/WebServicesOverviewGroup/overview.html) to match local metadata to the Web of Science and retrieve details about individual documents from the Web of Science.
 
 For more information about web services for the Web of Science, please review this [data integration](https://clarivate.com/webofsciencegroup/solutions/xml-and-apis/) website.
@@ -43,7 +45,7 @@ $ python3 lookup_ids.py myfile.csv output.csv
 
 #### A note on throttling
 
-AMR limits the number of records you can request per minute. The example scripts in this repository include logic to respect that limit. You may have to adjust the THROTTLE_CAP value in client.py if you continue to receive throttling errors. 
+AMR limits the number of records you can request per minute. The example scripts in this repository include logic to respect that limit. You may have to adjust the THROTTLE_CAP value in client.py if you continue to receive throttling errors.
 
 #### Disclaimer
 
